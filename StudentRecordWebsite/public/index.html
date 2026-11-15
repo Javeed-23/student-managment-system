@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudentHub | Student Records</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">S</span><span>Student<span class="brand-light">Hub</span></span></div>
+      <div class="nav-label">WORKSPACE</div>
+      <a class="nav-item active" href="#"><span>▦</span> Overview</a>
+      <a class="nav-item" href="#records"><span>▤</span> Student records</a>
+      <div class="sidebar-bottom"><div class="avatar">AD</div><div><strong>Administrator</strong><small>Student management</small></div></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div><p class="eyebrow">STUDENT MANAGEMENT</p><h1>Dashboard overview</h1></div>
+        <button id="addTopBtn" class="primary-btn"><span>＋</span> Add student</button>
+      </header>
+
+      <section class="welcome">
+        <div><p class="welcome-kicker">YOUR CLASS, AT A GLANCE</p><h2>Manage student records<br>with confidence.</h2><p class="welcome-copy">Keep student details, marks and attendance organized in one place.</p></div>
+        <div class="welcome-icon" aria-hidden="true">▤</div>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card"><div class="stat-top"><span>Total students</span><span class="stat-icon blue">♙</span></div><div id="totalStudents" class="stat-value">0</div><div class="stat-note">Records in your class</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Average marks</span><span class="stat-icon violet">↗</span></div><div id="averageMarks" class="stat-value">—</div><div class="stat-note">Out of 100 marks</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Average attendance</span><span class="stat-icon green">✓</span></div><div id="averageAttendance" class="stat-value">—</div><div class="stat-note">Across all students</div></article>
+      </section>
+
+      <section id="records" class="records-card">
+        <div class="records-heading"><div><h2>Student records</h2><p>View, search, edit or remove student details.</p></div><button id="addRecordBtn" class="primary-btn">＋ Add student</button></div>
+        <div class="toolbar"><label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search by name or roll number..." aria-label="Search students"></label><span id="recordCount" class="record-count">0 records</span></div>
+        <div id="notice" class="notice" role="status" hidden></div>
+        <div class="table-wrap"><table><thead><tr><th>ROLL NO.</th><th>STUDENT NAME</th><th>MARKS</th><th>ATTENDANCE</th><th>PERFORMANCE</th><th>ACTIONS</th></tr></thead><tbody id="studentRows"></tbody></table></div>
+        <div id="emptyState" class="empty-state"><div class="empty-icon">▤</div><h3>No student records yet</h3><p>Add your first student to get started.</p><button id="emptyAddBtn" class="primary-btn">＋ Add first student</button></div>
+      </section>
+      <footer>StudentHub <span>•</span> Student Record Management System</footer>
+    </main>
+  </div>
+
+  <div id="studentModal" class="modal-backdrop" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-heading"><div><p class="eyebrow">STUDENT DETAILS</p><h2 id="modalTitle">Add student</h2></div><button id="closeModalBtn" class="icon-btn" aria-label="Close dialog">×</button></div>
+      <p class="modal-description">Enter the student's information below.</p>
+      <form id="studentForm">
+        <label class="field">Roll number<input id="rollNo" name="rollNo" type="number" min="1" step="1" required placeholder="e.g. 101"><small id="rollHelp">Roll number must be unique.</small></label>
+        <label class="field">Full name<input id="name" name="name" type="text" maxlength="80" required placeholder="Enter full name"><small>Commas are not allowed in names.</small></label>
+        <div class="form-row"><label class="field">Marks (0–100)<input id="marks" name="marks" type="number" min="0" max="100" step="0.1" required placeholder="e.g. 86"></label><label class="field">Attendance (0–100)<input id="attendance" name="attendance" type="number" min="0" max="100" step="0.1" required placeholder="e.g. 92"></label></div>
+        <p id="formError" class="form-error" role="alert" hidden></p>
+        <div class="modal-actions"><button type="button" id="cancelBtn" class="secondary-btn">Cancel</button><button id="saveBtn" type="submit" class="primary-btn">Save student</button></div>
+      </form>
+    </section>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
