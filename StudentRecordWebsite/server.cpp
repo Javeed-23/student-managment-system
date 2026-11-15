@@ -1,6 +1,6 @@
 #include "httplib.h"
 #include "json.hpp"
-
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -153,11 +153,28 @@ int main() {
 
     server.set_mount_point("/", PUBLIC_DIR);
 
-    cout << "Student Record Management System running at http://localhost:8081\n";
-    cout << "Keep this terminal open while using the website. Press Ctrl+C to stop.\n";
-    if (!server.listen("0.0.0.0", 8081)) {
-        cerr << "Could not start server on port 8080. Is another program using it?\n";
+    
+const char* portEnv = std::getenv("PORT");
+int port = 8081;
+
+if (portEnv && *portEnv) {
+    try {
+        port = std::stoi(portEnv);
+    } catch (...) {
+        cerr << "Invalid PORT environment variable.\n";
         return 1;
     }
+}
+
+cout << "Student Record Management System running on port "
+     << port << endl;
+
+if (!server.listen("0.0.0.0", port)) {
+    cerr << "Could not start server on port " << port << endl;
+    return 1;
+}
+
+
+
     return 0;
 }
